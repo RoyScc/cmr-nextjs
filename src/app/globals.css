@@ -1,0 +1,194 @@
+
+@import "tailwindcss";
+
+/* ==========================================================================
+  MANUAL DE MARCA CMR
+  Plenos: #295B76 | #D66F2C | #71BBDA
+  Degradados: #4782A1 | #C75629 | #E99128 | #89CFE5 | #62A2D9
+   ========================================================================== */
+@theme {
+  --color-cmr-azul: #295b76;
+  --color-cmr-azul-medio: #4782a1;
+  --color-cmr-azul-claro: #62a2d9;
+  --color-cmr-celeste: #71bbda;
+  --color-cmr-celeste-claro: #89cfe5;
+  --color-cmr-naranja: #d66f2c;
+  --color-cmr-naranja-oscuro: #c75629;
+  --color-cmr-naranja-claro: #e99128;
+  --color-cmr-celeste-bg: #e8f4fa;
+  --color-cmr-naranja-bg: #fdf0e8;
+
+  --font-cmr: "Lexend", sans-serif;
+}
+
+:root {
+  --primary-color: #295b76;
+  --secondary-color: #d66f2c;
+  --accent-color: #71bbda;
+}
+
+#rehabilitacion {
+  scroll-margin-top: 100px;
+  padding: 10rem;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-cmr);
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+}
+
+/* ==========================================================================
+  BOTON FLOTANTE WPP
+   ========================================================================== */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 2000;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  background-color: #128c7e;
+}
+
+/* ==========================================================================
+  ANIMACIONES
+   ========================================================================== */
+.hero-blob {
+  background: linear-gradient(
+    135deg,
+    var(--color-cmr-celeste) 0%,
+    var(--color-cmr-azul) 100%
+  );
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  width: 100%;
+  height: 400px;
+  animation: blob-bounce 5s infinite ease-in-out;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes blob-bounce {
+  0%,
+  100% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  }
+  33% {
+    border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
+  }
+  66% {
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+  TARJETAS DE PROFESIONALES (FLIP CARDS)
+   ========================================================================== */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 380px;
+  perspective: 1000px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  border-radius: 1rem;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.flip-card-front {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-img {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.doctor-name-front {
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: var(--primary-color);
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-top: 4px solid var(--secondary-color);
+  padding: 0 1rem;
+}
+
+.flip-card-back {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--color-cmr-azul-medio) 100%
+  );
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem 1rem 1rem;
+}
