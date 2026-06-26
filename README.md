@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CMR - Centro Médico Respiratorio
 
-## Getting Started
+## 📄 Descripción del Proyecto
+El **Centro Médico Respiratorio (CMR)** es una aplicación web integral desarrollada exclusivamente para la gestión de pacientes, reserva de turnos y administración de una clínica especializada en salud pulmonar. Esta orientada a personas que no habituan usar aplicaciones
 
-First, run the development server:
+Contiene:
+1. **Portal Público para Pacientes:** Permite a los usuarios conocer la institución, explorar el perfil de los profesionales médicos y aprender sobre los distintos servicios que brinda la clínica (como Espirometría, Salud Mental y el Programa de Cesación Tabáquica). Además, incluye un sistema interactivo para solicitar turnos y una sección de contacto.
 
-```bash
+
+## 🌦️ API Integrada
+El proyecto integra la **OpenWeatherMap API**. Esta API REST externa se consume mediante un *Server Component* en Next.js para mostrar el clima actual (temperatura y condiciones) en tiempo real. 
+**Justificación:** La información meteorológica se utiliza en la interfaz para brindar recomendaciones dinámicas de salud respiratoria a los pacientes, que generalmente son ancianos de mayoria de edad (ej. abrigarse si hace frío, tener cuidado con la humedad o aprovechar los días soleados para hacer actividad física al aire libre).
+
+## 🛠️ Tecnologías y Arquitectura
+* **Framework:** Next.js (App Router)
+* **Librerías de UI:** Tailwind CSS, PrimeReact, PrimeIcons
+* **Renderizado:** Implementación mixta de Server Components (consumo de API) y Client Components (interactividad y hooks).
+* **Gestión de Estado:** React Context API (`TurnosContext`) y `localStorage` para la persistencia de datos.
+
+
+### Integrantes:
+1. Roy Scheurer
+
+
+## 🚀 Instrucciones para ejecutar en local
+
+Sigue estos pasos para correr el proyecto en tu entorno de desarrollo (ten en cuenta que necesitaras una api_key para que funcione el widget de clima) :
+
+1. **Clonar el repositorio:**
+    ```bash
+git clone git@github.com:RoyScc/cmr-nextjs.git
+cd cmr-next
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

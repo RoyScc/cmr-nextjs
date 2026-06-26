@@ -14,7 +14,11 @@ export const TurnosProvider = ({ children }) => {
     }
   }, []);
 
-  return <TurnosContext.Provider value={{ turno, setTurno }}>{children}</TurnosContext.Provider>;
+  return (
+    <TurnosContext.Provider value={{ turno, setTurno }}>
+      {children}
+    </TurnosContext.Provider>
+  );
 };
 
 export const useTurnos = () => {

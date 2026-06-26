@@ -1,6 +1,5 @@
 // src/app/(web)/page.js
 "use client";
-import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Servicios from "@/lib/servicios";
 import Profesionales from "@/lib/profesionales";
@@ -8,39 +7,16 @@ import { Button } from "primereact/button";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import "@/app/globals.css";
 import CardProfessional from "@/components/DrCard";
+import ClimaAPI from "@/components/ClimaAPI";
 
 export default function Home() {
   const router = useRouter();
-  const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(sectionRef.current);
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
-  }, []);
 
   return (
     <>
       {/* --- HERO --- */}
-      <section ref={sectionRef} className="grid grid-cols-1 md:grid-cols-2 bg-white text-gray-800 items-center min-h-[80vh]">
-        <div
-          className={`p-12 md:p-16 relative z-22 max-w-4xl flex flex-col items-center text-center animate-on-scroll ${isVisible ? "is-visible" : ""}`}
-        >
+      <section className="grid grid-cols-1 md:grid-cols-2 bg-white text-gray-800 items-center min-h-[80vh]">
+        <div className="p-12 md:p-16 relative z-22 max-w-4xl flex flex-col items-center text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gray-800 leading-tight">
             Donde tu <br />
             bienestar es <br />
@@ -50,12 +26,7 @@ export default function Home() {
             CMR se centra en mejorar tu calidad de vida a través de atención
             especializada y humana.
           </p>
-          <button
-            className="border-2 border-cmr-naranja text-cmr-naranja px-6 py-3 rounded-md hover:bg-cmr-naranja-bg transition-colors font-semibold"
-            onClick={() => router.push("/")}
-          >
-            Leer más
-          </button>
+         
         </div>
 
         <div className="p-12 md:p-16 flex justify-center relative">
@@ -99,9 +70,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- REHAB ANIMADA --- */}
+      {/* --- REHABILITACION --- */}
       <section
-        ref={sectionRef}
         className="relative min-h-[60vh] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden p-6 text-white"
         style={{
           backgroundImage:
@@ -111,11 +81,9 @@ export default function Home() {
         }}
       >
         {/* Capa oscura superpuesta */}
-        <div  className="absolute top-0 left-0 w-full h-full bg-black/50 z-10"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10"></div>
 
-        <div
-          className={` id='rehabilitacion' relative z-20 max-w-4xl flex flex-col items-center text-center animate-on-scroll ${isVisible ? "is-visible" : ""}`}
-        >
+        <div id="rehabilitacion" className="relative z-20 max-w-4xl flex flex-col items-center text-center">
           <h2 className="text-4xl md:text-5xl text-gray-200 font-bold mb-2 uppercase">
             Medicina Física y Rehabilitación
           </h2>
@@ -123,7 +91,8 @@ export default function Home() {
             Física Cardio-Pulmonar
           </h3>
           <Button
-            label="Ir a Medicina Física"
+            label="Reservar un Turno aqui"
+            href="/turnos"
             className="bg-cmr-naranja border-none text-white rounded-2xl px-8 py-3 font-bold hover:shadow-lg transition-transform hover:-translate-y-1"
           />
         </div>
@@ -143,6 +112,9 @@ export default function Home() {
 
         <CardProfessional />
       </section>
+
+      
+      <ClimaAPI />
 
       {/* --- OBRAS SOCIALES --- */}
       <section className="bg-white p-6 md:px-12 md:py-16">
@@ -182,7 +154,7 @@ export default function Home() {
       </section>
 
       {/* --- PREGUNTAS FRECUENTES --- */}
-      <section className=" p-6 md:p-12">
+      <section className="p-6 md:p-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start max-w-7xl mx-auto">
           <div className="md:col-span-5">
             <h2 className="text-4xl font-bold mb-4 text-cmr-azul">
