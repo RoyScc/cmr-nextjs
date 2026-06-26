@@ -88,27 +88,6 @@ h4 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* @keyframes blob-bounce {
-  0%,
-  100% {
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-  }
-  33% {
-    border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
-  }
-  66% {
-    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
-  }
-} */
-
-/* .animate-on-scroll {
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.8s ease-out,
-    transform 0.8s ease-out;
-} */
-
 .animate-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
