@@ -90,11 +90,6 @@ export default function Home() {
           <h3 className="text-2xl md:text-3xl text-gray-200 font-semibold mb-6">
             Física Cardio-Pulmonar
           </h3>
-          <Button
-            label="Reservar un Turno aqui"
-            href="/turnos"
-            className="bg-cmr-naranja border-none text-white rounded-2xl px-8 py-3 font-bold hover:shadow-lg transition-transform hover:-translate-y-1"
-          />
         </div>
       </section>
 
