@@ -72,7 +72,7 @@ export default function Home() {
 
       {/* --- REHABILITACION --- */}
       <section
-        className="relative min-h-[60vh] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden p-6 text-white"
+        className="relative min-h-[60vh] min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden p-6 text-white"
         style={{
           backgroundImage:
             "url('/paciente-haciendo-rehabilitacion-fisica-ayudado-por-terapeutas.jpg')",
@@ -81,7 +81,7 @@ export default function Home() {
         }}
       >
         {/* Capa oscura superpuesta */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10"></div>
 
         <div id="rehabilitacion" className="relative z-20 max-w-4xl flex flex-col items-center text-center">
           <h2 className="text-4xl md:text-5xl text-gray-200 font-bold mb-2 uppercase">
