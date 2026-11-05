@@ -1,18 +1,23 @@
-// src/app/(web)/layout.js
+// CMR/cmr-frontend/src/app/(web)/layout.jsx
 import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import PreLoader from "../../components/PreLoader";
+import { AuthProvider } from "@/context/AuthContext";
 import "primeicons/primeicons.css";
+
 
 export default function PublicLayout({ children }) {
   return (
     <div className="flex w-full flex-col min-h-screen bg-white">
-      <PreLoader />
+      {/* <PreLoader /> */}
       <Header />
 
       <main className="flex-grow">
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>  
+
       </main>
 
       <Footer />

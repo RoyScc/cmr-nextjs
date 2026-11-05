@@ -1,27 +1,32 @@
+// CMR/cmr-frontend/src/app/(auth)/login/page.jsx
+
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { isAuthenticated, login } = useAuth();
   const router = useRouter();
 
-  // Esta función simula el ingreso por ahora hasta que ponga la api del back con tokens
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/turnos");
+    }
+  }, [isAuthenticated, router]);
+
+  // Simula el ingreso hasta conectar la API. Deja la sesión activa.
   const handleLogin = (e) => {
     e.preventDefault();
-    localStorage.clear();
-    localStorage.setItem(
-      "usuarioCMR",
-      JSON.stringify({ rol: "admin", email: email })
-    );
-    router.push("/");
+    login("token-simulado");
   };
 
   return (
@@ -81,16 +86,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* comentado hasta nuevo aviso... */}
-          {/* <div className="flex align-items-center justify-content-between mb-5">
-            <Link
-              href="/recuperar-password"
-              className="font-medium no-underline text-blue-500 text-sm hover:underline hover:text-blue-700 cursor-pointer transition-colors transition-duration-150"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </div> */}
-
           <Button
             size="medium"
             label="Ingresar"
@@ -98,6 +93,15 @@ export default function LoginPage() {
             className="w-full p-2 font-bold bg-cmr-azul-medio border-1 transition-colors"
             type="submit"
           />
+
+          <div className="text-center mt-4">
+            <Link
+              href="/login/register"
+              className="font-medium no-underline text-blue-500 text-sm hover:underline hover:text-blue-700 cursor-pointer"
+            >
+              ¿No tenés cuenta? Registrate
+            </Link>
+          </div>
         </form>
       </div>
     </div>
