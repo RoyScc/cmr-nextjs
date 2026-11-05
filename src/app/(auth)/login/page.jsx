@@ -1,107 +1,112 @@
-// CMR/cmr-frontend/src/app/(auth)/login/page.jsx
-
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
+
+import { useForm, Controller } from "react-hook-form"; 
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useAuth } from "@/context/AuthContext";
 
+const loginSchema = z.object({
+  username: z.string().min(1, "El usuario es obligatorio"),
+  password: z.string().min(1, "La contraseña es obligatoria"),
+});
+
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { isAuthenticated, login } = useAuth();
-  const router = useRouter();
+  const { login } = useAuth();
+  const [apiError, setApiError] = useState("");
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/turnos");
+  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { username: "", password: "" }
+  });
+
+  const onSubmit = async (data) => {
+    setApiError("");
+    try {
+      const res = await fetch("http://localhost:8000/api/token/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Credenciales inválidas. Verifica tus datos.");
+
+      const result = await res.json();
+      login(result);
+    } catch (error) {
+      setApiError(error.message);
     }
-  }, [isAuthenticated, router]);
-
-  // Simula el ingreso hasta conectar la API. Deja la sesión activa.
-  const handleLogin = (e) => {
-    e.preventDefault();
-    login("token-simulado");
   };
 
   return (
     <div className="flex bg-cmr-celeste-bg items-center justify-center min-h-screen">
-      <div className=" border-2 border-cmr-azul-medio border-solid surface-card p-5 shadow-4 items-center justify-center border-round rounded-lg sm:w-26rem">
-
-        <div className=" mb-10">
-          <div className="p-2 flex px-4 items-center justify-center">
-            <Image
-              src="/imagotipo-cmr.svg"
-              alt="CMR"
-              width={120}
-              height={120}
-              priority
-            />
-          </div>
+      <div className="border-2 border-cmr-azul-medio border-solid surface-card p-5 shadow-4 items-center justify-center border-round rounded-lg sm:w-26rem bg-white">
+        
+        <div className="mb-10 text-center flex justify-center">
+          <Image src="/imagotipo-cmr.svg" alt="CMR" width={120} height={120} priority />
         </div>
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-center mb-4">
-            <label
-              htmlFor="email"
-              className="block text-900 font-medium text-sm mb-2"
-            >
-              Correo Electrónico
+            <label htmlFor="username" className="block text-900 font-medium text-sm mb-2">
+              Nombre de Usuario
             </label>
-            <InputText
-              size="large"
-              id="email"
-              type="email"
-              className="w-full p-2"
-              placeholder="ejemplo@cmr.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+            <Controller
+              name="username"
+              control={control}
+              render={({ field }) => (
+                <InputText
+                  id="username"
+                  size="large"
+                  className={`w-full p-2 ${errors.username ? "p-invalid border-red-500" : ""}`}
+                  placeholder="Ej: admin"
+                  {...field}
+                />
+              )}
             />
+            {errors.username && <small className="p-error block mt-1 text-red-500">{errors.username.message}</small>}
           </div>
 
           <div className="text-center mb-4">
-            <label
-              htmlFor="password"
-              className="block text-900 font-medium text-sm text-center mb-2"
-            >
+            <label htmlFor="password" className="block text-900 font-medium text-sm text-center mb-2">
               Contraseña
             </label>
-            <Password
-              size="large"
-              inputId="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              feedback={false}
-              className="w-full text-center"
-              toggleMask
-              inputClassName="w-full p-2"
-              placeholder="••••••••"
-              required
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <Password
+                  id="password"
+                  size="large"
+                  className={`w-full text-center ${errors.password ? "p-invalid" : ""}`}
+                  inputClassName="w-full p-2"
+                  feedback={false}
+                  toggleMask
+                  placeholder="••••••••"
+                  {...field}
+                />
+              )}
             />
+            {errors.password && <small className="p-error block mt-1 text-red-500">{errors.password.message}</small>}
           </div>
 
+          {apiError && <small className="p-error block mb-4 text-center text-red-500 font-bold">{apiError}</small>}
+            
+          
           <Button
             size="medium"
-            label="Ingresar"
-            icon="pi pi-sign-in"
-            className="w-full p-2 font-bold bg-cmr-azul-medio border-1 transition-colors"
+            label={isSubmitting ? "Ingresando..." : "Ingresar"}
+            icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-sign-in"}
+            className="w-full p-2 font-bold bg-cmr-azul-medio border-1 transition-colors text-white"
             type="submit"
+            disabled={isSubmitting}
           />
-
-          <div className="text-center mt-4">
-            <Link
-              href="/login/register"
-              className="font-medium no-underline text-blue-500 text-sm hover:underline hover:text-blue-700 cursor-pointer"
-            >
-              ¿No tenés cuenta? Registrate
-            </Link>
-          </div>
         </form>
       </div>
     </div>
