@@ -6,7 +6,7 @@ export const profesionales = [
     especialidad: "Cirujano",
     matricula: "M.N. 12345",
     desc: "Especialista en asma severo y EPOC con más de 15 años de experiencia.",
-    foto: "https://img.freepik.com/foto-gratis/doctor-sonriente-con-estetoscopio_1154-361.jpg?w=740",
+    foto: "medico2.jpg",
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ export const profesionales = [
     especialidad: "Psicologa",
     matricula: "M.P. 9876",
     desc: "Rehabilitación pulmonar y fisioterapia torácica para recuperación post-COVID.",
-    foto: "https://img.freepik.com/foto-gratis/doctora-llevando-bata-laboratorio-blanca_1303-30426.jpg?w=740",
+    foto: "medica1.jpg",
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ export const profesionales = [
     especialidad: "Médico",
     matricula: "M.N. 5521",
     desc: "Acompañamiento psicológico para pacientes con enfermedades crónicas.",
-    foto: "https://img.freepik.com/foto-gratis/enfermera-haciendo-gesto-ok_23-2147796677.jpg?w=740",
+    foto: "medico2.jpg",
   },
   {
     id: 4,
@@ -30,23 +30,24 @@ export const profesionales = [
     especialidad: "Kinesióloga",
     matricula: "M.N. 5721",
     desc: "Sesiones de tratamiento contra lesiones y rehabilitación física.",
-    foto: "https://img.freepik.com/foto-gratis/enfermera-haciendo-gesto-ok_23-2147796677.jpg?w=740",
+    foto: "medica1.jpg",
   },
   {
     id: 5,
-    nombre: "Lic. Alejandra Silvia Durquet",
+    nombre: "Lic. Marcela Guitierrez",
     especialidad: "Psicologa",
     matricula: "M.P. 9876",
     desc: "Rehabilitación pulmonar y fisioterapia torácica para recuperación post-COVID.",
-    foto: "https://img.freepik.com/foto-gratis/doctora-llevando-bata-laboratorio-blanca_1303-30426.jpg?w=740",
+    foto: "medica1.jpg",
+
   },
   {
     id: 6,
-    nombre: "Lic. Alejandra Silvia Durquet",
+    nombre: "Lic. Rocio Aguirre",
     especialidad: "Psicologa",
     matricula: "M.P. 9876",
     desc: "Rehabilitación pulmonar y fisioterapia torácica para recuperación post-COVID.",
-    foto: "https://img.freepik.com/foto-gratis/doctora-llevando-bata-laboratorio-blanca_1303-30426.jpg?w=740",
+    foto: "medica1.jpg",
   },
 ];
 
