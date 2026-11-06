@@ -42,8 +42,8 @@ export default function TurnosPage() {
       try {
         const headers = { Authorization: `Token ${token}` };
         const [resProf, resServ] = await Promise.all([
-          fetch("http://localhost:8000/api/profesionales/", { headers }),
-          fetch("http://localhost:8000/api/servicios/", { headers })
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profesionales/`, { headers }),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/servicios/`, { headers })
         ]);
         if (resProf.ok) {
           const data = await resProf.json();
@@ -65,7 +65,8 @@ export default function TurnosPage() {
     setLoading(true);
     setError(null);
     try {
-      let url = "http://localhost:8000/api/turnos/?";
+      
+      let url = `${process.env.NEXT_PUBLIC_API_URL}/api/turnos/?`;
       if (queryText) url += `search=${encodeURIComponent(queryText)}&`;
       if (queryDate) url += `fecha=${queryDate}&`;
 
@@ -114,7 +115,7 @@ export default function TurnosPage() {
     };
 
     try {
-      const res = await fetch("http://localhost:8000/api/turnos/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/turnos/`, {
         method: "POST",
         headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify(payload),

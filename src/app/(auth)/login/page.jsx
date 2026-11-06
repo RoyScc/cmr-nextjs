@@ -28,14 +28,14 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
     setApiError("");
     try {
-      const res = await fetch("`${process.env.NEXT_PUBLIC_API_URL}`/api/token/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/token/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
+  
       if (!res.ok) throw new Error("Credenciales inválidas. Verifica tus datos.");
-
+  
       const result = await res.json();
       login(result);
     } catch (error) {

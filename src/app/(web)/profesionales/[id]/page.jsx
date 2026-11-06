@@ -19,7 +19,7 @@ export default function PerfilProfesional() {
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
-        const res = await fetch("`${process.env.NEXT_PUBLIC_API_URL}`/api/profesionales/${id}/`");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profesionales/${id}/`);
         if (!res.ok) {
            throw new Error("Profesional no encontrado o acceso denegado.");
         }
