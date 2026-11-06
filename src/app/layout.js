@@ -3,7 +3,7 @@ import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "./globals.css";
-import { TurnosProvider } from "@/context/TurnosContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: "CMR - Centro Médico Respiratorio",
@@ -24,9 +24,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <TurnosProvider>
+        <AuthProvider>
+
           {children}
-        </TurnosProvider>
+
+        </AuthProvider>
       </body>
     </html>
   );

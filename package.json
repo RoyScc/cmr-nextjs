@@ -6,20 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest --reporter=verbose"
+
   },
   "dependencies": {
+    "@hookform/resolvers": "^7.0.3",
     "axios": "^1.17.0",
     "next": "16.2.7",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.8",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.91.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@vitejs/plugin-react": "^6.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
-    "tailwindcss": "^4.3.0"
+    "jsdom": "^29.1.1",
+    "tailwindcss": "^4.3.0",
+    "vitest": "^5.1.0"
   }
 }

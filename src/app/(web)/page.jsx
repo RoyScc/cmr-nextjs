@@ -2,12 +2,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Servicios from "@/lib/servicios";
-import Profesionales from "@/lib/profesionales";
 import { Button } from "primereact/button";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import "@/app/globals.css";
 import CardProfessional from "@/components/DrCard";
-import ClimaAPI from "@/components/ClimaAPI";
 
 export default function Home() {
   const router = useRouter();
@@ -109,7 +107,7 @@ export default function Home() {
       </section>
 
       
-      <ClimaAPI />
+  
 
       {/* --- OBRAS SOCIALES --- */}
       <section className="bg-white p-6 md:px-12 md:py-16">
