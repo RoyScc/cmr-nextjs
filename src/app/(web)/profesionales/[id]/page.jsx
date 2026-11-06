@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import profesionales from "@/lib/profesionales";
+import React, { useState, useEffect } from "react";
 import AlertaModal from "@/components/AlertModal";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -10,24 +9,32 @@ import { useAuth } from "@/context/AuthContext";
 export default function PerfilProfesional() {
   const { id } = useParams();
   const router = useRouter();
-  const { isAuthenticated } = useAuth(); //el estado Global
+  const { isAuthenticated } = useAuth(); 
 
+  const [doctor, setDoctor] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
 
-  const doctor = profesionales.find((doc) => String(doc.id) === String(id));
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        const res = await fetch(`http://localhost:8000/api/profesionales/${id}/`);
+        if (!res.ok) {
+           throw new Error("Profesional no encontrado o acceso denegado.");
+        }
+        const data = await res.json();
+        setDoctor(data);
+      } catch (err) {
+        console.error("Error al cargar detalle del profesional:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!doctor) {
-    return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Profesional no encontrado
-        </h1>
-        <Link href="/" className="mt-4 text-cmr-azul hover:underline">
-          Volver al inicio
-        </Link>
-      </div>
-    );
-  }
+    fetchDoctor();
+  }, [id]);
 
   const handleSolicitarTurno = () => {
     if (isAuthenticated) {
@@ -39,13 +46,29 @@ export default function PerfilProfesional() {
 
   const handleCerrarAlerta = () => {
     setMostrarAlerta(false);
-    // cuando cierre la alerta lo mando al login
     router.push("/login");
   };
 
+  if (loading) {
+    return <div className="min-h-[60vh] flex items-center justify-center font-bold text-gray-500">Cargando perfil del profesional...</div>;
+  }
+
+  if (error || !doctor) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Profesional no encontrado
+        </h1>
+        <p className="text-red-500 mt-2">{error}</p>
+        <Link href="/" className="mt-4 text-cmr-azul hover:underline font-bold">
+          Volver al inicio
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-[60vh] py-12 px-6 relative">
-      {/* Nuestro componente reutilizable extra */}
+    <div className="min-h-[60vh] py-12 px-6 relative bg-gray-50">
       <AlertaModal 
         visible={mostrarAlerta} 
         mensaje="Debes iniciar sesión con tu cuenta para poder solicitar un turno."
@@ -57,26 +80,25 @@ export default function PerfilProfesional() {
 
         <div className="p-8 flex flex-col items-center text-center">
           <img
-            src={doctor.foto}
-            alt={doctor.nombre}
+            src={doctor.foto || "/medico2.jpg"}
+            alt={doctor.nombre_completo}
             className="w-24 h-24 rounded-full object-cover border-4 border-cmr-celeste mb-5"
           />
 
           <span className="text-xs font-semibold tracking-wider uppercase text-cmr-naranja mb-1">
-            {doctor.especialidad}
+            {doctor.especialidad_nombre || "Especialista"}
           </span>
 
           <h1 className="text-2xl font-bold text-cmr-azul mb-1">
-            {doctor.nombre}
+            {doctor.nombre_completo}
           </h1>
 
           <span className="text-sm text-gray-500 mb-5">
             Matrícula {doctor.matricula}
           </span>
 
-          <p className="text-gray-600 leading-relaxed mb-8">{doctor.desc}</p>
+          <p className="text-gray-600 leading-relaxed mb-8">{doctor.bio || "Sin biografía disponible."}</p>
 
-          {/* Reemplazamos el Link por un botón con onClick para interceptar la acción */}
           <button
             onClick={handleSolicitarTurno}
             type="button"
@@ -87,7 +109,7 @@ export default function PerfilProfesional() {
 
           <Link
             href="/"
-            className="mt-5 text-sm text-gray-500 hover:text-cmr-azul transition"
+            className="mt-5 text-sm text-gray-500 hover:text-cmr-azul transition font-semibold"
           >
             ← Volver al inicio
           </Link>
