@@ -8,14 +8,13 @@ import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 
 import { useForm, Controller } from "react-hook-form"; 
+
+//puente entre RHF y Zod
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+ //schemas de validacion
+import { loginSchema } from "@/app/validations/loginSchema";
 import { useAuth } from "@/context/AuthContext";
 
-const loginSchema = z.object({
-  username: z.string().min(1, "El usuario es obligatorio"),
-  password: z.string().min(1, "La contraseña es obligatoria"),
-});
 
 export default function LoginPage() {
   const { login } = useAuth();
