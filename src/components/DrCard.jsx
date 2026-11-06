@@ -14,7 +14,7 @@ export default function CardProfessional() {
     const fetchProfesionales = async () => {
       try {
 
-        const res = await fetch("http://localhost:8000/api/profesionales/");
+        const res = await fetch("`${process.env.NEXT_PUBLIC_API_URL}`/api/profesionales/");
         if (!res.ok) {
            throw new Error("No se pudo conectar con la API o se requieren permisos.");
         }

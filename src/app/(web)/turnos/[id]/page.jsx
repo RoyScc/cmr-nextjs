@@ -25,7 +25,7 @@ export default function DetalleTurnoPage() {
   useEffect(() => {
     const fetchTurno = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/turnos/${id}/`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/turnos/${id}/`, {
           headers: { Authorization: `Token ${token}` },
         });
         if (!res.ok) throw new Error("Turno no encontrado");
@@ -55,7 +55,7 @@ export default function DetalleTurnoPage() {
         hora: editData.hora.length === 5 ? `${editData.hora}:00` : editData.hora,
       }; 
 
-      const res = await fetch(`http://localhost:8000/api/turnos/${id}/`, {
+      const res = await fetch("`${process.env.NEXT_PUBLIC_API_URL}`/api/turnos/${id}/`", {
         method: "PATCH",
         headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -84,7 +84,7 @@ export default function DetalleTurnoPage() {
     
     setActionLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/turnos/${id}/borrado_logico/`, {
+      const res = await fetch("`${process.env.NEXT_PUBLIC_API_URL}`/api/turnos/${id}/borrado_logico/`", {
         method: "DELETE",
         headers: { Authorization: `Token ${token}` },
       });

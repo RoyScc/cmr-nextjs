@@ -28,7 +28,7 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
     setApiError("");
     try {
-      const res = await fetch("http://localhost:8000/api/token/", {
+      const res = await fetch("`${process.env.NEXT_PUBLIC_API_URL}`/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
